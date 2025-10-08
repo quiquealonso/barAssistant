@@ -1,0 +1,46 @@
+@startuml barAssistant
+
+class Category {
+  - id: int
+  - name: String
+}
+
+class Product {
+  - id: int
+  - name: String
+  - description: String
+  - price: float
+}
+
+class Enterprise {
+  - id: int
+  - name: String
+  - address: String
+}
+
+class Ingredient {
+  - id: int
+  - name: String
+}
+class IngredientType{
+
+}
+
+class ProductType {
+  - id: int
+  - name: String
+}
+
+Product "*" -- "*" Category : pertany
+ProductType <|-- Product
+IngredientType <|-- Ingredient
+ProductType"*" -- "*" IngredientType
+Product "*" -- "*" Ingredient
+Product "1" -- "*" Enterprise: 
+Ingredient "*" -- "1" Enterprise
+
+
+@enduml
+
+
+

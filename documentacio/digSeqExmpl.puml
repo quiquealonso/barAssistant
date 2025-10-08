@@ -1,0 +1,12 @@
+@startuml diagramasecuencia
+actor->fill data & click validate
+loginForm
+->userValidate
+loginService
+->saveLogin
+userRepository
+->check(data)
+<--user
+<--ok
+<--
+@enduml

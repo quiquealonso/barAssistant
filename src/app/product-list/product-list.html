@@ -1,0 +1,51 @@
+<div class="flex flex-column items-center w-full">
+<table class="mx-auto">
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Price</td>
+        <td><button (click)="addProduct()">Add Product</button></td>
+    </tr>
+    @for (product of products; track product.id; let i =$index) {
+    <tr>   
+        <td><input type="text" [(ngModel)]="product.id" [disabled]='i!=clickedRow'></td>
+        <td><input type="text" [(ngModel)]="product.name" [disabled]='i!=clickedRow'></td>
+        <td><input type="text" [(ngModel)]="product.description" [disabled]='i!=clickedRow'></td>
+        <td><input type="text" [(ngModel)]="product.price" [disabled]='i!=clickedRow'></td>  
+        <td><button (click) = "editProduct(i)">{{i==clickedRow ? 'save' : 'edit'}}</button></td>
+        <td><button (click) ="deleteProduct(i)">delete </button></td>
+
+    </tr>
+}
+</table>
+</div>
+<p-button (click)="addProduct()">Add Product</p-button>
+<p-select [options]="products" [(ngModel)]="selectedProduct" placeholder="Select a product" (onChange)="onProductChange($event)" [editable]="true" optionLabel="name" class=" md:w-56" />
+<p-table [value]="products" stripedRows="true" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]">
+    <ng-template #caption>
+        <div class="flex items-center justify-between">
+            <span class="text-xl font-bold"></span>
+            <p-button icon="pi pi-bitcoin" rounded raised />
+            <p-button icon="pi pi-ethereum" rounded raised />
+            <p-button icon="pi pi-spinner pi-spin" rounded raised />
+        </div>
+    </ng-template>
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price }}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
