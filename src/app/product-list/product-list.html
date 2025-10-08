@@ -21,7 +21,7 @@
 </table>
 </div>
 <p-button (click)="addProduct()">Add Product</p-button>
-<p-select [options]="products" [(ngModel)]="selectedProduct" placeholder="Select a product" (onChange)="onProductChange($event)" [editable]="true" optionLabel="name" class=" md:w-56" />
+<p-select [options]="products" [(ngModel)]="selectedProduct" placeholder="Select a product" (onChange)="onPr    oductChange($event)" [editable]="true" optionLabel="name" class=" md:w-56" />
 <p-table [value]="products" stripedRows="true" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]">
     <ng-template #caption>
         <div class="flex items-center justify-between">
