@@ -1,0 +1,26 @@
+<div class="flex flex-col md:flex-row">
+        <div class="w-full w-5/12 flex flex-col items-center justify-center gap-3 py-5">
+            <form [formGroup]="profileForm">
+    
+            <div class="flex flex-col gap-2">
+                <label for="username">Username</label>
+                <input pInputText id="username" type="text" formControlName="username" [(ngModel)]="username" />
+                @if (profileForm.get("username")?.invalid && profileForm.get("username")?.touched) {
+                    <p-message severity="error" >{{getUsernameError()}}"></p-message>
+                }
+            </div>
+            <div class="flex flex-col gap-2">
+                <label for="password">Password</label>
+                <input pInputText id="password" type="password" formControlName="password"/>
+                @if (profileForm.get("password")?.invalid && profileForm.get("password")?.touched) {
+                    <p-message severity="error" [text]="getPasswdError()"></p-message>
+                }
+            </div>
+            <div class="flex">
+                <p-button (click)="onLoginClicked()" [disabled]="!profileForm.valid" label="Login" icon="pi pi-bitcoin" class="w-full max-w-[17.35rem]"
+                    styleClass="w-full mx-auto" />
+            </div>
+    </form>
+</div>
+
+</div>

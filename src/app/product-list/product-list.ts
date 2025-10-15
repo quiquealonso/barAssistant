@@ -8,7 +8,7 @@ import { SelectChangeEvent, SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-product-list',
-  imports: [FormsModule, ButtonModule, TableModule, SelectModule],
+  imports: [FormsModule, ButtonModule, TableModule, SelectModule, ],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css'
 })

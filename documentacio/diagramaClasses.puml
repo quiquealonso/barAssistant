@@ -4,6 +4,12 @@ class Category {
   - id: int
   - name: String
 }
+class CategoryType{
+  - id: number
+  - name: String
+  - description: String
+  - img: String
+}
 
 class Product {
   - id: int
@@ -16,6 +22,10 @@ class Enterprise {
   - id: int
   - name: String
   - address: String
+  - phone: String
+  - email: String
+  - nif: String
+  - passwd: String
 }
 
 class Ingredient {
@@ -23,22 +33,79 @@ class Ingredient {
   - name: String
 }
 class IngredientType{
-
+  - id: number
+  - name: String
+  - description: String
+  - img: String
+  - quantity: number
+  -customizale: boolean
 }
 
 class ProductType {
   - id: int
   - name: String
+  - description: String
+  - sellPrice: number
+  - img: String
+  - quantity: number
 }
+class Order {
+  - id: int
+  - date: Date
+  - totalPrice: float
+  - status: String
+}
+class Table {
+  - id: number
+  - name: string
+  - capacity: number
+  - status: string
+}
+class OrderLine {
+  - id: number
+  - price: number
+  - unityPrice: number
+  - status: string
+}
+class SectionType{
+  - id: number
+  - name: string
+  - description: string
+}
+class Device{
 
-Product "*" -- "*" Category : pertany
-ProductType <|-- Product
-IngredientType <|-- Ingredient
+}
+class Devicetype{
+
+}
+class Section{
+  - id: number
+  - name: string
+  - description: string
+}
+note left of Section
+  for example: bar, kitchen, terrace
+end note
+
+Section "*" -- "1" OrderLine
+Section "1" -- "*" Device
+SectionType "1" -- "*" Devicetype
+ProductType "*" -- "1" SectionType
+Product "1" -- "1" Enterprise
+Pruduct "*" -- "1" Section
+Order "*" -- "1" Enterprise
+Order "*" -- "1" Table
+OrderLine "*" -- "1" Order
+OrderLine "*" -- "1" Product
+
 ProductType"*" -- "*" IngredientType
 Product "*" -- "*" Ingredient
-Product "1" -- "*" Enterprise: 
-Ingredient "*" -- "1" Enterprise
 
+ProductType "*" -- "*" CategoryType : pertany
+Product "*" -- "*" Category : pertany
+Category "*" -- "1" Enterprise
+Ingredient "*" -- "1" Enterprise
+ProductType "*" -- "1" SectionType
 
 @enduml
 
