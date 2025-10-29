@@ -5,39 +5,51 @@ import { label } from '@primeuix/themes/aura/metergroup';
 import { Button } from 'primeng/button';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { MessageModule } from 'primeng/message';
+import { EnterpriseService } from '../../services/enterprise-service';
+import { Enterprise } from '../../model/enterprise';
+import { Message } from "../Base/message/message";
+import { InputUsername } from "../Base/input-username/input-username";
+import { InputPasswd } from "../Base/input-passwd/input-passwd";
+import { LoadBarProducts } from "../load-bar-products/load-bar-products";
 
 @Component({
   selector: 'app-login-component',
-  imports: [IftaLabelModule,  FormsModule, Button, ReactiveFormsModule, MessageModule],
+  imports: [IftaLabelModule, FormsModule, Button, ReactiveFormsModule, MessageModule, Message, InputUsername, InputPasswd, LoadBarProducts],
   templateUrl: './login-component.html',
-  styleUrl: './login-component.css'
+  styleUrl: './login-component.css',
+  providers: [EnterpriseService]
 })
 export class LoginComponent {
-username: any;
-password: any;
-getPasswdError(): string|undefined {
-const control = this.profileForm.get('password');
-if (control?.errors?.['required']) return "la password es obligatoria";
-return "";  
-}
-getUsernameError(): string {
-const control = this.profileForm.get('username');
-if (control?.errors?.['required']) return "el username es obligatorio";
-if (control?.errors?.['email']) return "email incorrecto";
-if (control?.errors?.['minlength']) return "minimo 3 caracteres";
-return "";
-}
- profileForm = new FormGroup({
+  passwordValid: boolean = false;
+  emailValid: boolean = false;
+  username: string = '';
+  password: string = '';
+  message: string = '';
+//  hidden: boolean = true;
+  isPasswordlValid(validity: boolean): boolean {
+    return validity
+  }
+  isEmailValid(validity: boolean): boolean {
+    return validity
+  }
+
+
+  profileForm = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
-onLoginClicked() {
-
-throw new Error('Method not implemented.');
-}
-  login() {
-
+  onLoginClicked() {
+    let enterprise = this.enterpriseService.checkCredentials(this.username, this.password);
+    if (enterprise) {
+      //this.hidden = false;
+      this.message = "login correcto" + enterprise.email;
+    } else {
+     // this.hidden = false;
+      this.message = "login incorrecto";
+    }
   }
-  email: string = '';
-  passwd: string = '';
+  login() { }
+
+  constructor(private enterpriseService: EnterpriseService) { }
 }
+

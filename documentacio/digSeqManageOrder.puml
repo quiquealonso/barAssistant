@@ -1,0 +1,33 @@
+@startuml manageOrder
+title Select a Table
+autonumber
+actor Usuari as U 
+box "system"
+    participant B as "<<boundary>>\nOrderComponent"
+    participant C as "<<control>>\nOrderService"
+    participant E as "<<entity>>\nOrderRepository"
+end box
+B->C: getOrder(OrderId)
+C->E: fetchOrder(orderId)
+E-->C: null
+C-> C: createNewOrder()
+U->B: addProduct 
+B->C: getCategories()
+C->E: fetchCategories() 
+E-->C: categoriesList
+C-->B: categoriesList
+U->B: selectCategory
+B->C: getProducts(categoryId)
+C->E: fetchProducts(categoryId)
+E-->C: productsList
+C-->B: productsList
+U->B: selectProduct
+B->C: addProductToOrder(productId)
+C->E: fetchProduct(productId)
+U->B: send order
+B->C: saveOrder(order)
+C->E: persistOrder(order)
+E--C: persistedOrder
+c->C sendOrderLinesToSection
+
+@enduml

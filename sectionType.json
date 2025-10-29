@@ -1,0 +1,14 @@
+[
+{
+    "id": 1,
+    "nombre": "Cuina",
+    "descripcion": "Secció dedicada als plats principals i aperitius."
+    
+  },
+  {
+    "id": 2,
+    "nombre": "Bar",
+    "descripcion": "Secció dedicada a les begudes i còctels."
+    
+  }
+]
