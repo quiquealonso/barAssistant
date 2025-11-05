@@ -1,0 +1,74 @@
+<p-table
+    [value]="ingredientsType"
+    [paginator]="true"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+>  
+    <ng-template #header>
+        <div class="w-full flex items-center justify-center mb-2">
+            <p-button (click)="openCreateDialog()" class="p-button-rounded p-button-sm"><i class="pi pi-plus"></i></p-button>
+        </div>
+        <th>
+            <p-columnFilter type="text" field="name" placeholder="Introduce Ingrediente" ariaLabel="Filter Name" filterOn="input"></p-columnFilter>
+        </th> 
+        <tr>
+            <th style="width:40%">Image</th>
+            <th style="width:40%">Name</th>
+            <th style="width:10%">Edit</th>
+            <th style="width:10%">Delete</th>
+        </tr>
+        
+    </ng-template>
+    <ng-template #body let-ingredientType let-i="rowIndex">
+        <tr (click)="editIngredient(i)">   
+            <td><img [src]="ingredientType.image" class="w-1 h-1" /></td>
+            <td (click)="editIngredient(i)">{{ ingredientType.name }}</td>   
+            <td><p-button (click)="editIngredient(i)" icon="pi pi-pencil"></p-button></td>
+            <td><p-button (click)="deleteIngredientType(i)" icon="pi pi-trash" class="p-button-danger"></p-button></td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<!-- Edit dialog (PrimeNG p-dialog) -->
+<p-dialog *ngIf="editingModel" header="Editar ingrediente" [(visible)]="editingVisible" [modal]="true" [style]="{width: '420px'}" (onHide)="cancelEdit()">
+    <div class="p-fluid">
+        <div class="field">
+            <label for="ename">Nombre</label>
+            <input id="ename" pInputText [(ngModel)]="editingModel.name" />
+        </div>
+        <div class="field">
+            <label for="eimage">Imagen (URL)</label>
+            <input id="eimage" pInputText [(ngModel)]="editingModel.image" />
+        </div>
+        <p-button label="Guardar" icon="pi pi-check" (click)="saveEdit()"></p-button>
+        <p-button label="Cancelar" icon="pi pi-times" class="p-button-secondary ml-2" (click)="cancelEdit()"></p-button>
+     </div>
+</p-dialog>
+
+<!-- Create dialog (PrimeNG p-dialog) -->
+<p-dialog *ngIf="createModel" header="Crear ingrediente" [(visible)]="createVisible" [modal]="true" [style]="{width: '420px'}" (onHide)="cancelCreate()">
+    <div class="p-fluid">
+        <div class="field">
+            <label for="cname">Nombre </label>
+            <input id="cname" pInputText [(ngModel)]="createModel.name" />
+        </div>
+        <div class="field">
+            <label for="cimage">Imagen (URL) </label>
+            <input id="cimage" pInputText [(ngModel)]="createModel.image" />
+        </div>
+        <div class="field">
+            <label for="cdesc">Description </label>
+            <input id="cdesc" pInputText [(ngModel)]="createModel.description" />
+        </div>
+        <div class="field">
+            <label for="cnumber">Number Stock </label>
+            <input id="cnumber" pInputText [(ngModel)]="createModel.quantity" />
+        </div>     
+               
+        <p-button label="Crear" icon="pi pi-plus" (click)="saveCreate()"></p-button>
+        <p-button label="Cancelar" icon="pi pi-times" class="p-button-secondary ml-2" (click)="cancelCreate()"></p-button>
+        
+    </div>
+</p-dialog>
+<!-- dialogo de confirmar la eliminacion-->

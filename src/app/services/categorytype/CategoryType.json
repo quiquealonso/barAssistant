@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "name": "Begudes",
+    "description": "",
+    "image": "/assets/images/drinks.png",
+    "categoriesType": [
+      {
+        "id": 2,
+        "name": "Refrescos",
+        "description": "Bebidas frías y carbonatadas sin alcohol.",
+        "image": "/assets/images/softDrinks.png",
+        "categoriesType": []
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Pizzas",
+    "description": "Variedad de pizzas ",
+    "image": "/assets/images/pizzas.png",
+    "categoriesType": []
+  }
+]
