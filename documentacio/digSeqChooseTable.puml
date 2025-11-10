@@ -1,18 +1,18 @@
-@startuml diagramasecuencia
-title Select a Table
+@startuml
+title Select a table (Boundary-Control-Entity)
 autonumber
-actor Usuari as U 
-box "system"
+actor Usuari as U
+
+box "System"
     participant B as "<<boundary>>\nSelectTableComponent"
     participant C as "<<control>>\nTableService"
     participant E as "<<entity>>\nTableRepository"
 end box
-B->C: getTables()
-C->E: findAll()
-E-->C: tablesList
-C-->B: tablesList
-U->B: select on a table
-U->B: select on a table
+B -> C: getTables()
+C -> E: fetchTables()
+E --> C: tablesList
+C --> B: tablesList
+U -> B: select on a table
 
 
 @enduml

@@ -1,6 +1,7 @@
 import { IngredientType } from './../../model/ingredient-type';
 import { Injectable } from '@angular/core';
 import * as DataIngredientType from './IngredientType.json';
+
 @Injectable({
   providedIn: 'root'
 })

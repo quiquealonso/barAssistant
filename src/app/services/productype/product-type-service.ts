@@ -10,4 +10,16 @@ export class ProductTypeService {
     console.log(this.data);
     return this.data;
   }
+  addProduct(product: ProductType) {
+    this.data.push(product);
+  }
+  deleteProduct(prod: ProductType){
+    const num = this.data.findIndex(i => i.id == prod.id)
+    this.data.splice(num, 1)
+  }
+  editProduct(prod: ProductType){
+    const num = this.data.findIndex(i => i.id == prod.id)
+    this.data[num] = prod
+
+  }
 }

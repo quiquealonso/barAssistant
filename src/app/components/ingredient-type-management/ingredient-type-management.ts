@@ -12,7 +12,7 @@ import { Toast } from 'primeng/toast';
 
 @Component({
   selector: 'app-ingredient-type-management',
-  imports: [TableModule, CommonModule, Button, InputTextModule, DialogModule, FormsModule, ConfirmDialog, Toast],
+  imports: [TableModule, CommonModule, Button, InputTextModule, DialogModule, FormsModule],
   templateUrl: './ingredient-type-management.html',
   styleUrls: ['./ingredient-type-management.css']
 })

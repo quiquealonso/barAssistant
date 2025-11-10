@@ -21,11 +21,11 @@
         
     </ng-template>
     <ng-template #body let-ingredientType let-i="rowIndex">
-        <tr (click)="editIngredient(i)">   
+        <tr>   
             <td><img [src]="ingredientType.image" class="w-1 h-1" /></td>
             <td (click)="editIngredient(i)">{{ ingredientType.name }}</td>   
             <td><p-button (click)="editIngredient(i)" icon="pi pi-pencil"></p-button></td>
-            <td><p-button (click)="deleteIngredientType(i)" icon="pi pi-trash" class="p-button-danger"></p-button></td>
+            <td><p-button (click)="deleteIngredientType(i)" icon="pi pi-trash"></p-button></td>
         </tr>
     </ng-template>
 </p-table>
