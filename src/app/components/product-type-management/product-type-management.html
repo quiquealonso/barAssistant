@@ -31,6 +31,7 @@
         </tr>
     </ng-template>
 </p-table>
+<app-picktable [inputData] ="value1()"></app-picktable>
 
 <!-- Edit dialog (PrimeNG p-dialog) -->
 <p-dialog  header="Editar Producto" [(visible)]="editingVisible" [modal]="true" [style]="{width: '420px'}" (onHide)="cancelEdit()">
@@ -67,7 +68,8 @@
             <label for="cnumber">Sell Price</label>
             <input id="cnumber" pInputText [value]="" />
         </div>     
-               
+        <app-picktable [inputData] ="value1()" (outputData)="mover($event)"></app-picktable>
+      
         <p-button label="Crear" icon="pi pi-plus" (click)="saveCreate()"></p-button>
         <p-button label="Cancelar" icon="pi pi-times" class="p-button-secondary ml-2" (click)="cancelCreate()"></p-button>
         

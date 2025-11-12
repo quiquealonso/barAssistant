@@ -11,11 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { TreeDragDropService, TreeNode } from 'primeng/api';
 import { IngredientType } from '../../model/ingredient-type';
 import { CategoryTypeService } from '../../services/categorytype/category-type-service';
+import { Picktable } from "../Base/picktable/picktable";
+import { CategoryType } from '../../model/category-type';
 
 
 @Component({
   selector: 'app-product-type-management',
-  imports: [TableModule,CommonModule, InputTextModule,DialogModule,FormsModule, Button, Dialog, Tree],
+  imports: [TableModule, CommonModule, InputTextModule, DialogModule, FormsModule, Button, Dialog, Tree, Picktable],
   templateUrl: './product-type-management.html',
   styleUrl: './product-type-management.css',
   providers: [TreeDragDropService],
@@ -27,8 +29,10 @@ import { CategoryTypeService } from '../../services/categorytype/category-type-s
 
 })
 export class ProductTypeManagement {
-value1 = signal<TreeNode[]>([]);
-
+mover($event: TreeNode<CategoryType>[]) {
+throw new Error('Method not implemented.');
+}
+value1 = signal<TreeNode<CategoryType>[]>([]);
 value2 = signal<TreeNode[]>([]);
 
 selectedProduct : ProductType = {} as ProductType
@@ -37,7 +41,8 @@ cancelEdit() {
 }
 productsType!: ProductType[];
 constructor(private productTypeSercive: ProductTypeService, private CategoryTypeService: CategoryTypeService) {
-
+  const val1 = this.CategoryTypeService.transformRecursivelyToListTreeNode(this.CategoryTypeService.getData())
+  this.value1.set(val1)
 } 
 ngOnInit() {
     this.productsType = this.productTypeSercive.getData();
@@ -52,11 +57,6 @@ ngOnInit() {
   //create dialog visibility and model
   createVisible: boolean = false;
   //modelo para crear nuevo ingrediente
-
-
-
-  
-
 cancelCreate() {
 }
 saveCreate() {

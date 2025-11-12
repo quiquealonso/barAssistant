@@ -1,0 +1,42 @@
+<div class="flex  flex-row gap-4">
+<p-treetable [value]="inputData()" [scrollable]="true" [tableStyle]="{'min-width':'30rem'}" 
+(onNodeSelect)="manageSelection($event)" selectionMode="single">
+    <ng-template #header>
+        <tr>
+            <th>Categoria</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+            <td>
+                <p-treetable-toggler [rowNode]="rowNode" />
+                {{ rowData.name }}
+            </td>
+        </tr>
+    </ng-template>
+</p-treetable>
+<div class="flex flex-column gap-4 justify-content-center align-items-center">
+    <p-button (click)= "moveToRigth($event)"><i class="pi pi-angle-right" pButtonIcon></i></p-button>
+    <p-button (click)="moveToLeft($event)"> <i class=" pi pi-angle-double-right"></i></p-button>
+    <p-button><i class=" pi pi-angle-left"></i></p-button>
+    <p-button><i class=" pi pi-angle-double-left"></i></p-button>
+
+
+</div>
+<br>
+<p-treetable [value]="" [scrollable]="true" [tableStyle]="{'min-width':'30rem'}">
+    <ng-template #header>
+        <tr>
+            <th>Name</th>      
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+            <td>
+                <p-treetable-toggler [rowNode]="rowNode" />
+                {{ rowData.name }}
+            </td>
+        </tr>
+    </ng-template>
+</p-treetable>
+</div>
