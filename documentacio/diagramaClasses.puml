@@ -3,12 +3,13 @@
 class Product{
 
 }
-class CategoryType{
+class CategoryType {
     - id: number
     - name: string
     - description: string
     - image: string
 }
+
 class Category{
 
 }
@@ -17,13 +18,10 @@ class Enterprise{
     - name: string
     - address: string
     - phone: string
-    - email: string
     - nif: string
-    - passwd:string
 
 }
 class ProductType{
-
 
 }
 class Ingredient{
@@ -40,13 +38,23 @@ class DeviceType{
 class Device{
 
 }
+class User {
+  - id: number
+  - name: string
+  - email: string
+  - passwd: string
+}
 class Section {
+  - id: number
+  - name: string
+  - description: string
 
 }
 Note top of Section
     for example: Bar, Kitchen, Terrace, Waiter
 end note
-class Ordre{
+
+class Order{
     - id: number
     - date: Date
     - totalPrice: number
@@ -58,11 +66,14 @@ class Table{
     - capacity: number
     - status: string
 }
-class OrdreLine{
+
+class OrderLine{
     - id: number
-    - quantity: number
     - unityPrice: number
 }
+Note top of OrderLine
+    Must have one line per product
+end note
 class IngredientType{
     - id: number
     - name: string
@@ -70,7 +81,14 @@ class IngredientType{
     - image: string
     - quantity:number
     - customizable: boolean
-
+}
+Class ElaborationSequenceType{
+    - id: number
+    - sectionOrder: number
+}
+Class ElaborationSequence{
+    - id: number
+    - sectionOrder: number
 }
 Class ProductType{
     - id: number
@@ -80,26 +98,34 @@ Class ProductType{
     - image: string
     - quantity:number
 }
-CategoryType "1"--"*" CategoryType
-OrdreLine "1"--"*" Section
+ProductType "1"--"*" ElaborationSequenceType
+Product "1"--"*" ElaborationSequence
+ElaborationSequenceType "*" -- "1" SectionType
+ElaborationSequence "*" -- "1" Section
+Table "*" -- "1" Enterprise
+Product "*"--"*" Section
 Section "1"--"*" Device
 SectionType "1"--"*" DeviceType
 ProductType "*" -- "1" SectionType
 Product "*" -- "1" Enterprise
-Product "*" -- "1" Section
-Ordre "*" -- "1" Table
-Ordre "*" -- "1" Enterprise
-OrdreLine "*" -- "1" Ordre
-OrdreLine "*" -- "1" Product
 
+
+Order "*" -- "1" Table
+Order "*" -- "1" User
+Order "*" -- "1" Enterprise
+OrderLine "*" -- "1" Order
+OrderLine "*" -- "1" Product
+OrderLine "*" -- "1" Section :CurrentSection
+Enterprise "1" -- "*" Section
+Enterprise "1" -- "*" User
+
+CategoryType "1"--"*" CategoryType
 ProductType "*"--"*" IngredientType
 Product "*" -- "*"  Ingredient
 Product "*" -- "*" Category : pertany
 ProductType "*" -- "*" CategoryType : pertany
-Enterprise "1" -- "*" Section
 
 Category "*" -- "1" Enterprise
 Ingredient "*" -- "1" Enterprise
-
 
 @enduml

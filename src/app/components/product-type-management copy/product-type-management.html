@@ -1,0 +1,148 @@
+<p-table
+    [value]="productsType"
+    [paginator]="true"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+>  
+    <ng-template #header>
+        <div class="w-full flex items-center justify-center mb-2">
+            <p-button (click)="openCreateDialog()" class="p-button-rounded p-button-sm"><i class="pi pi-plus"></i></p-button>
+        </div>
+        <th>
+            <p-columnFilter type="text" field="name" placeholder="Introduce Producto" ariaLabel="Filter Name" filterOn="input"></p-columnFilter>
+        </th> 
+        <tr>
+            <th style="width:30%">Image</th>
+            <th style="width:30%">Name</th>
+            <th style="width:20%">Price</th>
+            <th style="width:10%">Edit</th>
+            <th style="width:10%">Delete</th>
+
+        </tr>
+    </ng-template>
+    <ng-template #body let-productsType let-i="rowIndex" >
+        <tr (click)="infoProduct(productsType)"  >   
+            <td><img [src]="productsType.image" class="w-1 h-1" /></td>
+            <td>{{ productsType.name }}  </td>   
+            <td>{{ productsType.category }} €</td>
+            <td>{{ productsType.sellPrice }} €</td>
+            <td><p-button (click)="editProduct(productsType)" icon="pi pi-pencil"></p-button></td>
+            <td><p-button (click)="deleteProduct(productsType)" icon="pi pi-trash"></p-button></td>
+        </tr>
+    </ng-template>
+</p-table>
+<!--<app-picktable [inputData] ="value1()"></app-picktable>-->
+
+<!-- Edit dialog (PrimeNG p-dialog) -->
+<p-dialog  header="Editar Producto" [(visible)]="editingVisible" [modal]="true" [style]="{width: '420px'}" (onHide)="cancelEdit()">
+    <div class="p-fluid">
+        <div class="field">
+            <label for="ename">Nombre</label>
+            <input id="ename" pInputText [value]=selectedProduct.name />
+        </div>
+        <div class="field">
+            <label for="eimage">Imagen (URL)</label>
+            <input id="eimage" pInputText [value]=selectedProduct.image/>
+        </div>
+        <p-button label="Guardar" icon="pi pi-check" (click)="saveEdit()"></p-button>
+        <p-button label="Cancelar" icon="pi pi-times" class="p-button-secondary ml-2" (click)="cancelEdit()"></p-button>
+     </div>
+</p-dialog>
+
+<!-- Create dialog (PrimeNG p-dialog) -->
+<p-dialog header="Crear Producto" [(visible)]="createVisible" [modal]="true" [style]="{width: '420px'}" (onHide)="cancelCreate()">
+    <div class="p-fluid">
+        <div class="field">
+            <label for="cname">Nombre </label>
+            <input id="cname" pInputText [value]="" />
+        </div>
+        <div class="field">
+            <label for="cimage">Imagen (URL) </label>
+            <input id="cimage" pInputText [value]="" />
+        </div>
+        <div class="field">
+            <label for="cdesc">Description </label>
+            <input id="cdesc" pInputText [value]="" />
+        </div>
+        <div class="field">
+            <label for="cnumber">Sell Price</label>
+            <input id="cnumber" pInputText [value]="" />
+        </div>     
+        <app-picktable [inputData] ="value1()" (outputData)="mover($event)"></app-picktable>
+        <p-button label="Crear" icon="pi pi-plus" (click)="saveCreate()"></p-button>
+        <p-button label="Cancelar" icon="pi pi-times" class="p-button-secondary ml-2" (click)="cancelCreate()"></p-button>       
+    </div>
+</p-dialog> 
+<!-- Detail Component-->
+<p-dataview #dv [value]="productsType">
+    <ng-template #list let-items>
+        <div class="grid grid-cols-12 gap-4 grid-nogutter">
+            <div class="col-span-12" *ngFor="let item of items; let first = first">
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
+                    [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
+                >
+                    <div class="md:w-40 relative">
+                        <img
+                            class="block xl:block mx-auto rounded-border w-full"
+                            [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image"
+                            [alt]="item.name"
+                        />
+                        <p-tag
+                            [value]="item.inventoryStatus"
+                            class="absolute dark:!bg-surface-900"
+                            [style.left.px]="4"
+                            [style.top.px]="4"
+                        />
+                    </div>
+                    <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
+                        <div class="flex flex-row md:flex-col justify-between items-start gap-2">
+                            <div>
+                                <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
+                                <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
+                            </div>
+                            <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
+                                <div
+                                    class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                                    style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
+                                >
+                                    <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{
+                                        item.rating
+                                    }}</span>
+                                    <i class="pi pi-star-fill text-yellow-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col md:items-end gap-8">
+                            <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{
+                                '$' + item.price
+                            }}</span>
+                            <div class="flex flex-row-reverse md:flex-row gap-2">
+                                <p-button icon="pi pi-heart" [outlined]="true" />
+                                <p-button
+                                    icon="pi pi-shopping-cart"
+                                    class="flex-auto md:flex-initial whitespace-nowrap"
+                                    label="Buy Now"
+                                    [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataview>
+
+
+
+<!-- dialogo de confirmar la eliminacion
+<div class="card flex flex-col md:flex-row gap-4">
+    <p-tree [value]="value1()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="first" droppableScope="second">
+        <ng-template #empty> No Items Left </ng-template>
+    </p-tree>
+    <p-tree [value]="value2()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="second" droppableScope="first">
+        <ng-template #empty> Drag Nodes Here </ng-template>
+    </p-tree>
+</div>-->

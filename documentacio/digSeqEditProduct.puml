@@ -1,0 +1,29 @@
+@startuml
+title Editar Producto (Boundary-Control-Entity)
+autonumber
+actor Administrador as A
+
+box "Sistema"
+    participant B as "<<boundary>>\nProductTypeManagement"
+    participant C as "<<control>>\nProductService"
+    participant E as "<<entity>>\nProduct"
+end box
+
+A -> B: Modificar campos y Clicar Guardar
+B -> C: actualizarProducto(id, data)
+
+activate C
+
+    C -> C: validarDatos()
+    C -> E: modificarProducto(id, data)
+
+    activate E
+
+    E --> C: Producto Actualizado
+    deactivate E
+
+    C --> B: Confirmación de éxito
+deactivate C
+
+B --> A: Mostrar Mensaje de éxito
+@enduml

@@ -1,0 +1,96 @@
+<p-table [value]="orderLines" 
+    [paginator]="true"
+    [rows]="10"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]">
+    <ng-template #caption>
+        <div class="flex items-center justify-between">
+            <span class="text-xl font-bold">
+                <p-button label="Añadir Productos" (onClick)="addProducts()" icon="pi pi-plus"></p-button>
+            </span>
+        </div>
+    </ng-template>
+    <ng-template #header>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-orderLine>
+        <tr>
+            <td>
+                <img *ngIf="orderLine.product.image" [src]="orderLine.product.image" alt="{{orderLine.product.name}}" style="width: 32px; height: 32px; margin-right: 8px;" />
+                {{ orderLine.product.name }}
+            </td>
+            <td>{{ orderLine.quantity }}</td>
+            <td>{{ orderLine.product.sellPrice | currency }}</td>
+            <td>
+                <button class="p-button p-component p-button-sm" (click)="onEditOrderLine(orderLine)">Editar</button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template #footer>
+        <tr>
+            <td colspan="6">En total hay {{ orderLines ? orderLines.length : 0 }} líneas de pedido.</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<div class="flex justify-end mt-3">
+    <p-button label="Finalizar Orden" icon="pi pi-check" severity="success"
+        [disabled]="!(orderLines?.length)" (onClick)="finalizeOrder()"></p-button>
+</div>
+
+<p-dialog header="Añadir Productos" [modal]="true" [(visible)]="visible" [style]="{ width: '60vw', minWidth: '400px', maxWidth: '900px' }">
+    <div *ngIf="categories && categories.length > 0 && !showProducts" class="mb-4">
+        <div class="category-card-list">
+            <div *ngFor="let cat of categories" (click)="onCategorySelect(cat)"
+                [ngClass]="{'selected-card': selectedCategory?.id === cat.id, 'dark-card': 'isDarkMode'}" class="category-card">
+                <img *ngIf="cat.image" [src]="cat.image" alt="{{cat.name}}" class="category-card-img" />
+                <span class="category-card-text">{{cat.name}}</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showProducts && !showConfirm">
+        <span class="p-text-secondary block mb-4">Selecciona un producto de la categoría <b>{{selectedCategory?.name}}</b>:</span>
+        <div class="product-card-list">
+            <div *ngFor="let prod of productsByCategory" (click)="onAddProduct(prod)"
+                [ngClass]="{'selected-card': selectedProduct?.id === prod.id, 'dark-card': 'isDarkMode'}" class="product-card">
+                <img *ngIf="prod.image" [src]="prod.image" alt="{{prod.name}}" class="product-card-img" />
+                <span class="product-card-text">{{prod.name}}</span>
+                <span style="margin-top: 0.2rem; font-size: 0.7rem; color: #666;">{{prod.sellPrice | currency}}</span>
+            </div>
+        </div>
+        <button class="p-button p-component mt-2" icon="pi pi-backward" (click)="showProducts = false">Volver a categorías</button>
+    </div>
+    <div *ngIf="showConfirm && !showIngredientEdit">
+        <span class="p-text-secondary block mb-4">¿Qué quieres hacer con <b>{{selectedProduct?.name}}</b>?</span>
+        <div class="flex justify-end gap-2 mt-2">
+            <button class="p-button p-component" [disabled]="!selectedProduct" (click)="confirmAddOrEdit(getSafeQuantity())">Añadir</button>
+            <button class="p-button p-component p-button-secondary" [disabled]="!hasIngredients(selectedProduct)" (click)="showEditIngredients()">Editar ingredientes</button>
+            <button class="p-button p-component p-button-secondary" (click)="cancelConfirm()">Cancelar</button>
+        </div>
+    </div>
+    <div *ngIf="showConfirm && showIngredientEdit">
+        <span class="p-text-secondary block mb-4">Ingrediente de <b>{{selectedProduct?.name}}</b>:</span>
+        <div class="product-card-list" style="justify-content: flex-start;">
+            <div *ngFor="let ing of editableIngredients" class="product-card" [ngClass]="{'selected-card': ing.selected}">
+                <img *ngIf="ing.image" [src]="ing.image" alt="{{ing.name}}" class="product-card-img" />
+                <span class="product-card-text">{{ing.name}}</span>
+                <button class="p-button p-component mt-2" [ngClass]="{'p-button-danger': ing.selected}" (click)="toggleIngredient(ing)">
+                  {{ ing.selected ? 'Quitar' : 'Restaurar' }}
+                </button>
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-2">
+            <button class="p-button p-component" (click)="confirmAddOrEdit()">Añadir</button>
+            <button class="p-button p-component p-button-secondary" (click)="cancelIngredientEdit()">Cancelar</button>
+        </div>
+    </div>
+    <div class="flex justify-end gap-2" *ngIf="!showProducts">
+        <p-button label="Cancelar" severity="secondary" (click)="visible = false" />
+        <p-button label="Siguiente" [disabled]="!selectedCategory" (click)="visible = false" />
+    </div>
+</p-dialog>

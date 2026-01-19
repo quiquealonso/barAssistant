@@ -7,7 +7,7 @@ import { Button, ButtonDirective, ButtonIcon } from "primeng/button";
 
 @Component({
   selector: 'app-picktable',
-  imports: [TreeTableModule, Button, ButtonDirective, ButtonIcon],
+  imports: [TreeTableModule, Button, ButtonIcon],
   templateUrl: './picktable.html',
   styleUrl: './picktable.css'
 })

@@ -1,25 +1,17 @@
 import { Injectable } from '@angular/core';
-import * as DataProductType from './productType.json';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { ProductType } from '../../model/product-type';
 @Injectable({
   providedIn: 'root'
 })
 export class ProductTypeService {
-  private data: ProductType[] = (DataProductType as any).default as ProductType[];
-  getData(): ProductType[] {
-    console.log(this.data);
-    return this.data;
-  }
-  addProduct(product: ProductType) {
-    this.data.push(product);
-  }
-  deleteProduct(prod: ProductType){
-    const num = this.data.findIndex(i => i.id == prod.id)
-    this.data.splice(num, 1)
-  }
-  editProduct(prod: ProductType){
-    const num = this.data.findIndex(i => i.id == prod.id)
-    this.data[num] = prod
+  private apiUrl = 'http://localhost:3000/api/bar_assistant/v1/products'; // Cambia el puerto si es necesario
 
+  constructor(private http: HttpClient) {}
+
+  getData(): Observable<ProductType[]> {
+    return this.http.get<ProductType[]>(this.apiUrl);
   }
+  // Métodos addProduct, deleteProduct, editProduct se actualizarán para usar la API
 }

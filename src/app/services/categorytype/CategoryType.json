@@ -64,5 +64,62 @@
         "subcategoriesType": []
       }
     ]
+  },
+  {
+    "id": 31,
+    "name": "1er Plat",
+    "description": "1er plat",
+    "image": "/assets/images/pizzas.png",
+    "categoryTypeParent": {
+      "id": 3,
+      "name": "Menu",
+      "description": "Menu del dia",
+      "image": "/assets/images/pizzas.png"
+    },
+    "subcategoriesType": []
+  },
+  {
+    "id": 4,
+    "name": "Cafeteria",
+    "description": "Productos de cafetería",
+    "image": "/assets/images/cafe.png",
+    "categoryTypeParent": null,
+    "subcategoriesType": [
+      {
+        "id": 41,
+        "name": "Cafés",
+        "description": "Variedad de cafés",
+        "image": "/assets/images/coffee.png",
+        "categoryTypeParent": {
+          "id": 4,
+          "name": "Cafeteria",
+          "description": "Productos de cafetería",
+          "image": "/assets/images/cafe.png"
+        },
+        "subcategoriesType": []
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Postres",
+    "description": "Dulces y postres",
+    "image": "/assets/images/dessert.png",
+    "categoryTypeParent": null,
+    "subcategoriesType": [
+      {
+        "id": 51,
+        "name": "Tartas",
+        "description": "Variedad de tartas",
+        "image": "/assets/images/cake.png",
+        "categoryTypeParent": {
+          "id": 5,
+          "name": "Postres",
+          "description": "Dulces y postres",
+          "image": "/assets/images/dessert.png"
+        },
+        "subcategoriesType": []
+      }
+    ]
   }
 ]

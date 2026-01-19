@@ -1,0 +1,27 @@
+<div class="mesa-container">
+  <div class="header-section">
+    <p>Seleccion la Mesa para empezar la comanda</p>
+    <div class="header-actions">
+      <input pInputText type="number" min="1" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" placeholder="Nº mesa" />
+    <p-button label="+ Agregar Mesa" (click)="addMesa()"></p-button>
+    </div>
+  </div>
+  
+  <div class="mesas">
+    <p-card *ngFor="let mesa of mesasFiltradas" [header]="'MESA ' + mesa" (click)="selectMesa(mesa)" class="mesa-card"></p-card>
+  </div>
+
+<p-dialog [(visible)]="addMesaDialog" header="Agregar Nueva Mesa" [modal]="true" [style]="{width: '25vw'}">
+  <div class="dialog-content">
+    <label>Número de mesa:</label>
+    <input pInputText type="number" min="1" [(ngModel)]="newMesaNumber" placeholder="Ingresa el número" />
+    <div *ngIf="dialogMessage()" [ngClass]="'message-' + dialogMessageType()" class="dialog-message">
+      {{ dialogMessage() }}
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" (click)="addMesaDialog.set(false)" severity="secondary"></p-button>
+    <p-button label="Agregar" (click)="confirmAddMesa()"></p-button>
+  </ng-template>
+</p-dialog>
+</div>

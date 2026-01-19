@@ -28,6 +28,6 @@ U->B: send order
 B->C: saveOrder(order)
 C->E: persistOrder(order)
 E--C: persistedOrder
-c->C sendOrderLinesToSection
+c->C: sendOrderLinesToSection
 
 @enduml

@@ -12,7 +12,7 @@ import { MessageModule } from "primeng/message";
 export class InputUsername {
 username: string = '';
 validation = output<boolean>();
-//emailChange = output<string>();
+
 email= model<string>("");
 getUsernameError(): string {
 const control = this.profileForm.get('username');

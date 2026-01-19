@@ -1,56 +1,171 @@
-<p-table
-    [value]="productsType"
-    [paginator]="true"
-    [rows]="5"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    [rowsPerPageOptions]="[5, 10, 20]"
->  
-    <ng-template #header>
-        <div class="w-full flex items-center justify-center mb-2">
-            <p-button (click)="openCreateDialog()" class="p-button-rounded p-button-sm"><i class="pi pi-plus"></i></p-button>
-        </div>
-        <th>
-            <p-columnFilter type="text" field="name" placeholder="Introduce Producto" ariaLabel="Filter Name" filterOn="input"></p-columnFilter>
-        </th> 
-        <tr>
-            <th style="width:30%">Image</th>
-            <th style="width:30%">Name</th>
-            <th style="width:20%">Price</th>
-            <th style="width:10%">Edit</th>
-            <th style="width:10%">Delete</th>
-        </tr>
-        
-    </ng-template>
-    <ng-template #body let-productsType let-i="rowIndex">
-        <tr>   
-            <td><img [src]="productsType.image" class="w-1 h-1" /></td>
-            <td>{{ productsType.name }}  </td>   
-            <td>{{ productsType.sellPrice }} €</td>
-            <td><p-button (click)="editProduct(productsType)" icon="pi pi-pencil"></p-button></td>
-            <td><p-button (click)="deleteProduct(productsType)" icon="pi pi-trash"></p-button></td>
-        </tr>
-    </ng-template>
+<!-- Tabla Ingredients -->
+<div class="card">
+    <p-table #dt1 [value]="productsType" dataKey="id" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [paginator]="true"
+        [globalFilterFields]="['name', 'description', 'sell Price']" [(selection)]="selectedProduct"
+        selectionMode="single" (onRowSelect)="onRowSelect($event)">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
+                <p-button label="Add Product" (onClick)="openCreateDialog()" class="ml-2" icon="pi pi-plus"
+                    (click)="openCreateDialog()" />
+                <p-iconfield iconPosition="left" class="ml-auto">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Search keyword" />
+                </p-iconfield>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="min-width: 15rem">
+                    <div class="flex items-center justify-between">
+                        Image
+                        <p-columnFilter type="text" field="name" display="menu" />
+                    </div>
+                </th>
+                <th style="min-width: 15rem">
+                    <div class="flex items-center justify-between">
+                        Name
+                        <p-columnFilter type="numeric" field="sellPrice" display="menu" />
+                    </div>
+                </th>
+                <th style="min-width: 10rem">
+                    <div class="flex items-center justify-between">Price</div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-productType>
+            <tr [pSelectableRow]="productType">
+                <td>
+                    <div class="flex items-center gap-2">
+                <td><img [src]="productType.image" class="w-1 h-1" /></td>
+</div>
+</td>
+<td>
+    {{ productType.name }}
+</td>
+<td>
+    <div class="flex items-center gap-2">{{ productType.sellPrice }} €</div>
+</td>
+</tr>
+</ng-template>
+<ng-template #emptymessage>
+    <tr>
+        <td colspan="7">No products found</td>
+    </tr>
+</ng-template>
 </p-table>
-<app-picktable [inputData] ="value1()"></app-picktable>
+</div>
+<!-- Detalles dels productes-->
+<div class="card mt-4">
+    <h3 class="mb-4">Producto Seleccionado {{selectedProduct.name}}</h3>
+    <div class="grid">
+        <div class="col-9">
+            <div class="grid">
+                <div class="col-4">
+                    <label for="name" class="font-bold block mb-2">Nombre</label>
+                    <input id="name" type="text" pInputText [(ngModel)]="selectedProduct.name"
+                        [disabled]="!selectedProduct" class="w-full" />
+                </div>
+                <div class="col-4">
+                    <label for="sellPrice" class="font-bold block mb-2">Precio de Venta</label>
+                    <p-inputnumber id="sellPrice" [(ngModel)]="selectedProduct.sellPrice" [disabled]="!selectedProduct"
+                        mode="currency" currency="EUR" locale="es-ES" class="w-full"></p-inputnumber>
+                </div>
+                <div class="col-4 flex align-items-end">
+                    <p-button label="Ingredientes" icon="pi pi-list" severity="primary" (onClick)="infoIngredients()"
+                        [disabled]="!selectedProduct" class="w-full"></p-button>
+                </div>
 
-<!-- Edit dialog (PrimeNG p-dialog) -->
-<p-dialog  header="Editar Producto" [(visible)]="editingVisible" [modal]="true" [style]="{width: '420px'}" (onHide)="cancelEdit()">
+                <div class="col-8">
+                    <label for="description" class="font-bold block mb-2">Descripción</label>
+                    <textarea id="description" pTextarea [(ngModel)]="selectedProduct.description"
+                        [disabled]="!selectedProduct" rows="3" class="w-full"></textarea>
+                </div>
+                <div class="col-4 flex align-items-end">
+                    <p-button label="Categorías" icon="pi pi-tags" severity="primary" [disabled]="!selectedProduct"
+                        class="w-full"></p-button>
+                </div>
+
+                <div class="col-4">
+                    <label for="quantity" class="font-bold block mb-2">Cantidad</label>
+                    <p-inputnumber id="quantity" [(ngModel)]="selectedProduct.quantity" [disabled]="!selectedProduct"
+                        class="w-full"></p-inputnumber>
+                </div>
+                <div class="col-4">
+                    <label for="image" class="font-bold block mb-2">URL de Imagen</label>
+                    <input id="image" type="text" pInputText [(ngModel)]="selectedProduct.image"
+                        [disabled]="!selectedProduct" class="w-full" />
+                </div>
+                <div class="col-4 flex align-items-end">
+                    <p-button label="Secuencia Secció" icon="pi pi-tags" severity="primary"
+                        [disabled]="!selectedProduct" class="w-full"></p-button>
+                </div>
+
+                <div class="col-3">
+                    <div class="flex flex-column gap-2">
+                        <p-button label="Guardar" (onClick)="dialogGuardar()" icon="pi pi-check" severity="success"
+                            [disabled]="!selectedProduct" class="w-full"></p-button>
+                        <p-button label="Eliminar" (onClick)="dialogEliminar()" icon="pi pi-trash" severity="danger"
+                            [disabled]="!selectedProduct" class="w-full"></p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ingredients Dialog 
+<p-dialog header="Ingredientes del producto" [(visible)]="editingVisible" [modal]="true" [style]="{width: '420px'}">
+
     <div class="p-fluid">
-        <div class="field">
-            <label for="ename">Nombre</label>
-            <input id="ename" pInputText [value]=selectedProduct.name />
+        <div class="field" *ngFor="let ing of selectedProduct.ingredientsType">
+            <div class="flex align-items-center gap-2">
+                <img [src]="ing.image" alt="{{ ing.name }}" width="40" height="40" />
+                <div>
+                    <div class="font-bold">{{ ing.name }}</div>
+                    <small>{{ ing.description }}</small>
+                    <div>Cantidad: {{ ing.quantity }}</div>
+                </div>
+            </div>
         </div>
-        <div class="field">
-            <label for="eimage">Imagen (URL)</label>
-            <input id="eimage" pInputText [value]=selectedProduct.image/>
-        </div>
-        <p-button label="Guardar" icon="pi pi-check" (click)="saveEdit()"></p-button>
+    </div>
+    <ng-template #noIngredients>
+        <p>No hay ingredientes para este producto.</p>
+    </ng-template>
+      <p-button label="Guardar" icon="pi pi-check" (click)="saveEdit()"></p-button>
         <p-button label="Cancelar" icon="pi pi-times" class="p-button-secondary ml-2" (click)="cancelEdit()"></p-button>
-     </div>
+</p-dialog> -->
+
+<p-dialog header="Ingredientes del producto" [(visible)]="editingVisible" [modal]="true" [style]="{width: '820px'}">
+    <p-picklist [source]="ingredientsType" [target]="ingredientsProduct" [dragdrop]="true" [responsive]="true"
+        sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px"
+        scrollHeight="20rem">
+        <ng-template let-option let-selected="selected" #item>
+            <div class="flex flex-wrap p-1 items-center gap-4 w-full">
+                <img class="w-12 shrink-0 rounded"
+                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}"
+                    [alt]="option.name" />
+                <div class="flex-1 flex flex-col">
+                    <span class="font-medium text-sm">{{ option.name }}</span>
+                    <span [ngClass]="{
+                        'text-surface-500': !selected,
+                        'dark:text-surface-400': !selected,
+                        'text-inherit': selected,
+                    }">{{ option.category }}</span>
+                </div>
+                <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
+            </div>
+        </ng-template>
+    </p-picklist>
 </p-dialog>
 
+<!--Create Dialog-->
 <!-- Create dialog (PrimeNG p-dialog) -->
-<p-dialog header="Crear Producto" [(visible)]="createVisible" [modal]="true" [style]="{width: '420px'}" (onHide)="cancelCreate()">
+<p-dialog header="Crear Producto" [(visible)]="createVisible" [modal]="true" [style]="{width: '420px'}"
+    (onHide)="cancelCreate()">
     <div class="p-fluid">
         <div class="field">
             <label for="cname">Nombre </label>
@@ -67,20 +182,27 @@
         <div class="field">
             <label for="cnumber">Sell Price</label>
             <input id="cnumber" pInputText [value]="" />
-        </div>     
-        <app-picktable [inputData] ="value1()" (outputData)="mover($event)"></app-picktable>
-      
+        </div>
+        <!--<app-picktable [inputData] ="value1()" (outputData)="mover($event)"></app-picktable>-->
         <p-button label="Crear" icon="pi pi-plus" (click)="saveCreate()"></p-button>
-        <p-button label="Cancelar" icon="pi pi-times" class="p-button-secondary ml-2" (click)="cancelCreate()"></p-button>
-        
+        <p-button label="Cancelar" icon="pi pi-times" class="p-button-secondary ml-2"
+            (click)="cancelCreate()"></p-button>
     </div>
 </p-dialog>
-<!-- dialogo de confirmar la eliminacion-->
-<div class="card flex flex-col md:flex-row gap-4">
-    <p-tree [value]="value1()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="first" droppableScope="second">
-        <ng-template #empty> No Items Left </ng-template>
-    </p-tree>
-    <p-tree [value]="value2()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="second" droppableScope="first">
-        <ng-template #empty> Drag Nodes Here </ng-template>
-    </p-tree>
-</div>
+<!-- Delete Confirmation Dialog -->
+<p-dialog header="Confirmar Eliminación" [(visible)]="eliminarVisible" [modal]="true">
+    ¿Eliminar {{ selectedProduct?.name }}?
+    <div class="flex gap-2 mt-3">
+        <p-button label="Sí" (onClick)="onDelete()"></p-button>
+        <p-button label="No" (onClick)="eliminarVisible=false"></p-button>
+    </div>
+</p-dialog>
+
+<!-- Save Confirmation Dialog -->
+<p-dialog header="Confirmar Guardado" [(visible)]="guardarVisible" [modal]="true">
+    ¿Guardar {{ selectedProduct?.name }}?
+    <div class="flex gap-2 mt-3">
+        <p-button label="Sí" (onClick)="onProductSave()"></p-button>
+        <p-button label="No" (onClick)="guardarVisible=false"></p-button>
+    </div>
+</p-dialog>

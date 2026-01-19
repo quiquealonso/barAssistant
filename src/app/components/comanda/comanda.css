@@ -1,0 +1,111 @@
+/* Cards de productos (igual que categorías, pero permite personalización futura) */
+.product-card-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: center;
+	align-items: flex-start;
+	width: 100%;
+	min-height: 150px;
+}
+.product-card {
+	cursor:pointer;
+	flex: 1 1 110px;
+	min-width: 100px;
+	max-width: 150px;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+	padding: 1rem 0.5rem 1rem 0.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 2px solid #eee;
+	transition: border 0.2s, background 0.2s, box-shadow 0.2s;
+	background: #fff;
+	font-size: 1rem;
+}
+.product-card-img {
+	width: 40px;
+	height: 40px;
+	margin-bottom: 0.5rem;
+}
+.product-card-text {
+	font-weight: 700;
+	text-align: center;
+	color: #222;
+	font-size: 1.1em;
+}
+.selected-card {
+	border: 2.5px solid #2196f3 !important;
+	box-shadow: 0 8px 32px rgba(33,150,243,0.18) !important;
+}
+@media (prefers-color-scheme: dark) {
+	.product-card {
+		background: #23272f !important;
+	}
+	.product-card-text {
+		color: #fff !important;
+	}
+}
+/* Cards de categorías */
+/* Cards de categorías adaptables y grandes */
+.category-card-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+	justify-content: center;
+	align-items: flex-start;
+	width: 100%;
+	min-height: 300px;
+}
+.category-card {
+	cursor:pointer;
+	flex: 1 1 220px;
+	min-width: 200px;
+	max-width: 320px;
+	border-radius: 16px;
+	box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+	padding: 2rem 1rem 1.5rem 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 2px solid #eee;
+	transition: border 0.2s, background 0.2s, box-shadow 0.2s;
+	background: #fff;
+	font-size: 1.25rem;
+}
+.category-card-img {
+	width: 80px;
+	height: 80px;
+	margin-bottom: 1rem;
+}
+.category-card-text {
+	font-weight: 700;
+	text-align: center;
+	color: #222;
+	font-size: 1.2em;
+}
+.selected-card {
+	border: 2.5px solid #2196f3 !important;
+	box-shadow: 0 8px 32px rgba(33,150,243,0.18) !important;
+}
+@media (prefers-color-scheme: dark) {
+	.category-card {
+		background: #23272f !important;
+	}
+	.category-card-text {
+		color: #fff !important;
+	}
+}
+.selected-card {
+	border: 2px solid #2196f3 !important;
+	box-shadow: 0 4px 16px rgba(33,150,243,0.12) !important;
+}
+@media (prefers-color-scheme: dark) {
+	.category-card {
+		background: #23272f !important;
+	}
+	.category-card-text {
+		color: #fff !important;
+	}
+}

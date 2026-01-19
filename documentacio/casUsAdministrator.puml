@@ -1,0 +1,25 @@
+@startuml administrator
+title Administrator Use Cases
+actor Administrator as A
+
+
+usecase "Login" as UC1
+
+usecase "SetUpProducts" as UC2
+usecase "Select ProductTypes" as UC5
+usecase "Select CategoryTypes" as UC6
+
+usecase "Modify Profile Enterprise" as UC3
+usecase "SetUpSection" as UC4
+usecase "Manage User Of Enterprise" as UC7
+usecase "Manage Tables" as UC10
+
+A --> UC1
+A --> UC2
+A --> UC3
+A --> UC4
+A --> UC7
+A --> UC10
+UC2 ..> UC5
+UC2 ..> UC6
+@enduml

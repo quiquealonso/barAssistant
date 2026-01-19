@@ -1,7 +1,7 @@
-import { Component, NgModule, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TableModule } from "primeng/table";
-import { Button } from "primeng/button";
+import { Table, TableModule, TableRowSelectEvent } from "primeng/table";
+import { ButtonModule } from "primeng/button";
 import { Dialog, DialogModule } from "primeng/dialog";
 import { Tree } from 'primeng/tree';
 import { ProductType } from '../../model/product-type';
@@ -13,88 +13,119 @@ import { IngredientType } from '../../model/ingredient-type';
 import { CategoryTypeService } from '../../services/categorytype/category-type-service';
 import { Picktable } from "../Base/picktable/picktable";
 import { CategoryType } from '../../model/category-type';
+import { DataView } from 'primeng/dataview';
+import { Tag } from 'primeng/tag';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { ProgressBar } from 'primeng/progressbar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ConfirmDialogModule } from 'primeng/confirmdialog'
+import { ConfirmationService } from 'primeng/api';
+import { PickList } from "primeng/picklist";
 
 
 @Component({
   selector: 'app-product-type-management',
-  imports: [TableModule, CommonModule, InputTextModule, DialogModule, FormsModule, Button, Dialog, Tree, Picktable],
+  standalone: true,
+  imports: [TableModule, CommonModule, InputTextModule, DialogModule, FormsModule, ButtonModule, IconFieldModule, InputIconModule, InputNumberModule, ConfirmDialogModule, PickList],
   templateUrl: './product-type-management.html',
   styleUrl: './product-type-management.css',
-  providers: [TreeDragDropService],
+  providers: [TreeDragDropService, ConfirmationService],
   styles: [
-        `.p-tree-node-dragover {
+    `.p-tree-node-dragover {
                 border: 1px dashed var(--p-primary-color);
         }`
-    ],
+  ],
 
 })
 export class ProductTypeManagement {
-mover($event: TreeNode<CategoryType>[]) {
-throw new Error('Method not implemented.');
-}
-value1 = signal<TreeNode<CategoryType>[]>([]);
-value2 = signal<TreeNode[]>([]);
 
-selectedProduct : ProductType = {} as ProductType
-newProduct = {} as ProductType
-cancelEdit() {
-}
-productsType!: ProductType[];
-constructor(private productTypeSercive: ProductTypeService, private CategoryTypeService: CategoryTypeService) {
-  const val1 = this.CategoryTypeService.transformRecursivelyToListTreeNode(this.CategoryTypeService.getData())
-  this.value1.set(val1)
-} 
-ngOnInit() {
-    this.productsType = this.productTypeSercive.getData();
-        this.value1.set(this.CategoryTypeService.transformToListTreeNode());
-      
-  }
-  
-  editingIndex: number | null = null;
-  // editable copy of the ingredient data bound to the form
-  // si el panel de edición desplegable está visible
-  editingVisible: boolean = false;
-  //create dialog visibility and model
   createVisible: boolean = false;
-  //modelo para crear nuevo ingrediente
-cancelCreate() {
-}
-saveCreate() {
-}
-editProduct(prod: ProductType) {
-  this.selectedProduct = prod
-  this.editingVisible = true
-  this.productTypeSercive.editProduct(prod)
 
-}
-deleteProduct(prod: ProductType) {
-  this.productTypeSercive.deleteProduct(prod)
+  editingVisible: boolean = false;
+  eliminarVisible: boolean = false;
+  guardarVisible: boolean = false;
 
-}
-saveEdit() {
-  this.productsType = [...this.productTypeSercive.getData()]
-  this.editingVisible = false
-}
-openCreateDialog() {
- const maxId = this.productsType && this.productsType.length ? this.productsType.reduce((m, it) => Math.max(m, it.id || 0), 0) : 0;
-    this.newProduct = {
-      id: maxId + 1,
+  productsType!: ProductType[];
+
+  searchValue: string | undefined;
+
+  selectedProduct: ProductType;
+  picklistVisible: boolean = false;
+  ingredientsType: any[]|undefined;
+  ingredientsProduct: any[]|undefined;
+  constructor(private productTypeSercive: ProductTypeService) {
+    this.selectedProduct = {
+      id: 0,
       name: '',
       description: '',
+      sellPrice: 0,
       image: '',
       quantity: 0,
-      sellPrice: 0,
-      sectionType: {
-        id: 0, name: '',
-        description: ''
-      },
-      categoriesType: [],
-      ingredientsType: []
-    } ;
+      sectionType: {} as any,
+      categoriesType: null,
+      ingredientsType: null
+    };
+
+  }
+  openCreateDialog() {
     this.createVisible = true;
   }
+  onProductSave() {
+    this.productTypeSercive.editProduct(this.selectedProduct);
+    this.productsType = [...this.productTypeSercive.getData()];
 
+    this.guardarVisible = false;
+    this.selectedProduct = {} as ProductType;
+  }
+  dialogGuardar() {
+    this.guardarVisible = true;
+  }
+  cancelCreate() {
+  }
+  saveCreate() {
+  }
+  infoIngredients() {
+    this.editingVisible = true;
+  }
+  ngOnInit() {
+    this.productsType = this.productTypeSercive.getData();
+  }
+  onRowSelect($event: TableRowSelectEvent<ProductType>) {
+    console.log('Row selected:', this, this.selectedProduct);
+  }
+  clear(table: Table) {
+    table.clear();
+    this.searchValue = ''
+  }
+  dialogEliminar() {
+    this.eliminarVisible = true;
+  }
+  onDelete() {
+    this.productTypeSercive.deleteProduct(this.selectedProduct);
+    this.productsType = [...this.productTypeSercive.getData()];
+    this.eliminarVisible = false;
+    this.selectedProduct = {} as ProductType;
+  }
+  getSeverity(status: string) {
+    switch (status.toLowerCase()) {
+      case 'unqualified':
+        return 'danger';
+
+      case 'qualified':
+        return 'success';
+
+      case 'new':
+        return 'info';
+
+      case 'negotiation':
+        return 'warn';
+
+      case 'renewal':
+        return null;
+    }
+    return null;
+  }
 }
-
 
 

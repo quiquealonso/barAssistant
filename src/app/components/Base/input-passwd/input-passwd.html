@@ -1,10 +1,9 @@
 <form [formGroup]="profileForm">
 <div class="flex flex-col gap-2">
     <label for="pssword">Password</label>
-    <input pInputText id="password" type="password" formControlName="password" [value]="password()"
-    (input)="onInputChange($event)"/>
+    <input pInputText id="password" type="password" formControlName="password" [value]="password()"(input)="onInputChange($event)"/>
     @if (profileForm.get("password")?.invalid && profileForm.get("password")?.touched) {
-    <p-message severity="error" [text]="getPasswdError()"></p-message>
-     }
+        <p-message severity="error" [text]="getPasswdError()"></p-message>
+    }
 </div>
 </form>

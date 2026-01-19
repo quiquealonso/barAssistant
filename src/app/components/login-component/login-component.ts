@@ -14,7 +14,7 @@ import { LoadBarProducts } from "../load-bar-products/load-bar-products";
 
 @Component({
   selector: 'app-login-component',
-  imports: [IftaLabelModule, FormsModule, Button, ReactiveFormsModule, MessageModule, Message, InputUsername, InputPasswd, LoadBarProducts],
+  imports: [IftaLabelModule, FormsModule, Button, ReactiveFormsModule, MessageModule, Message, InputUsername, InputPasswd],
   templateUrl: './login-component.html',
   styleUrl: './login-component.css',
   providers: [EnterpriseService]

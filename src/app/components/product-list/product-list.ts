@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ProductService } from '../services/product-service.service';
-import { Product } from '../model/product';
+import { ProductService } from '../../services/product-service.service';
+import { Product } from '../../model/product';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
-import { EnterpriseService } from '../services/enterprise-service';
+import { EnterpriseService } from '../../services/enterprise-service';
 
 @Component({
   selector: 'app-product-list',
@@ -22,11 +22,11 @@ export class ProductList {
   
   onProductChange(event: SelectChangeEvent) {
   this.selectedProduct = event.value;
-  this.preoductServie.addProduct(this.selectedProduct);
+  this.productServie.addProduct(this.selectedProduct);
   }
 
 addProduct() {
-    this.preoductServie.addProduct(null);
+    this.productServie.addProduct(null);
   }
 //productsEditables:ProducEditable[] = []
 
@@ -39,10 +39,10 @@ editProduct(fila: number){
   }
 }
 deleteProduct(fila: number ){
-  this.preoductServie.delete(fila)
+  this.productServie.delete(fila)
 }
-constructor(private preoductServie:ProductService){
-    this.products = this.preoductServie.getAllProducts();
+constructor(private productServie:ProductService){
+    this.products = this.productServie.getAllProducts();
     for (let p of this.products){
       //this.product.push({...p, editable: false})
     }

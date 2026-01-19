@@ -1,14 +1,42 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import * as DataCategorieType from './CategoryType.json';
 import { CategoryType, ItemFlattened } from '../../model/category-type';
 import { TreeNode } from 'primeng/api';
 import { TreeNodeDataProvider } from '../../model/tree-node-data-provider';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryTypeService implements TreeNodeDataProvider<CategoryType> {
-  private data: CategoryType[] = (DataCategorieType as any).default as CategoryType[];
+export class CategoryTypeService  {
+  //el implements va fora
+  private http = inject(HttpClient);
+  constructor() { }
+  getOrders(): Observable<CategoryType[]> { 
+    const url = environment.apiUrl + "/orders/";
+      //console.log('URL de la API per obtenir ordres:', url);
+      return this.http.get<ApiResult<CategoryType[]>>(url).
+        pipe(
+          map(res => res.object), // Extraiem només l'array d'objectes
+          catchError(err => {
+            console.log('❌ Error:', err);
+            return of([]); // Si falla, retorna un observable amb un array buit
+          })
+        );
+    }
+  } 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /**private data: CategoryType[] = (DataCategorieType as any).default as CategoryType[];
   getData(): CategoryType[] {
     return this.data;
   }
@@ -64,4 +92,4 @@ export class CategoryTypeService implements TreeNodeDataProvider<CategoryType> {
   }
 
 
-}
+}**/

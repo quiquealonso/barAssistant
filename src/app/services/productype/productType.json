@@ -13,26 +13,33 @@
     },
     "categoriesType": [
       {
-        "id": 3,
+        "id": 2,
         "name": "Pizzas",
         "description": "Variedad de pizzas ",
-        "image": "../../assets/images/pizza.png",
+        "image": "/assets/images/pizzas.png",
+        "categoriesType": null
+      },
+      {
+        "id": 31,
+        "name": "1er Plat",
+        "description": "1er plat",
+        "image": "/assets/images/pizzas.png",
         "categoriesType": null
       }
     ],
-    "ingredientsType:": [
+    "ingredientsType": [
       {
         "id": 2,
-        "name": "Tomato",
-        "description": "A fresh red tomato, perfect for pizzas.",
+        "name": "Tomate",
+        "description": "Tomate fresco para la base.",
         "image": "../../assets/images/tomato.png",
         "quantity": 5,
         "customizable": true
       },
       {
         "id": 3,
-        "name": "Cheese",
-        "description": "A block of cheddar cheese, great for pizzas.",
+        "name": "Mozzarella",
+        "description": "Queso mozzarella fundido.",
         "image": "../../assets/images/cheese.png",
         "quantity": 5,
         "customizable": true
@@ -53,11 +60,420 @@
     },
     "categoriesType": [
       {
-        "id": 2,
+        "id": 12,
         "name": "Refrescos",
         "description": "Bebidas frías y carbonatadas sin alcohol.",
-        "image": "../../assets/images/softDrinks.png",
+        "image": "/assets/images/softDrinks.png",
         "categoriesType": null
+      },
+      {
+        "id": 1,
+        "name": "Begudes",
+        "description": "Bebidas en general.",
+        "image": "/assets/images/drinks.png",
+        "categoriesType": null
+      }
+    ],
+    "ingredientsType": null
+  },
+  {
+    "id": 3,
+    "name": "Pizza 4 Quesos",
+    "description": "Pizza con mezcla de cuatro quesos: mozzarella, cheddar, gorgonzola y parmesano.",
+    "sellPrice": 14.0,
+    "image": "../../assets/images/pizza4cheese.png",
+    "quantity": 20,
+    "sectionType": {
+      "id": 1,
+      "name": "Cuina",
+      "description": "Secció dedicada als plats principals i aperitius."
+    },
+    "categoriesType": [
+      {
+        "id": 2,
+        "name": "Pizzas",
+        "description": "Variedad de pizzas ",
+        "image": "/assets/images/pizzas.png",
+        "categoriesType": null
+      },
+      {
+        "id": 31,
+        "name": "1er Plat",
+        "description": "1er plat",
+        "image": "/assets/images/pizzas.png",
+        "categoriesType": null
+      }
+    ],
+    "ingredientsType": [
+      { "id": 10, "name": "Mozzarella", "description": "Queso mozzarella.", "image": "../../assets/images/cheese.png", "quantity": 2, "customizable": true },
+      { "id": 11, "name": "Cheddar", "description": "Queso cheddar.", "image": "../../assets/images/cheddar.png", "quantity": 2, "customizable": true },
+      { "id": 12, "name": "Gorgonzola", "description": "Queso gorgonzola.", "image": "../../assets/images/gorgonzola.png", "quantity": 1, "customizable": true },
+      { "id": 13, "name": "Parmesano", "description": "Queso parmesano.", "image": "../../assets/images/parmesan.png", "quantity": 1, "customizable": true }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Agua Mineral",
+    "description": "Botella de agua mineral natural fría.",
+    "sellPrice": 1.5,
+    "image": "../../assets/images/water.png",
+    "quantity": 200,
+    "sectionType": {
+      "id": 2,
+      "name": "Barra",
+      "description": "Secció dedicada a les begudes i còctels."
+    },
+    "categoriesType": [
+      {
+        "id": 12,
+        "name": "Refrescos",
+        "description": "Bebidas frías y carbonatadas sin alcohol.",
+        "image": "/assets/images/softDrinks.png",
+        "categoriesType": null
+      }
+    ],
+    "ingredientsType": null
+  },
+  {
+    "id": 5,
+    "name": "Fanta Naranja",
+    "description": "Refresco de naranja, frío y burbujeante.",
+    "sellPrice": 3.0,
+    "image": "../../assets/images/fanta_orange.png",
+    "quantity": 80,
+    "sectionType": {
+      "id": 2,
+      "name": "Barra",
+      "description": "Secció dedicada a les begudes i còctels."
+    },
+    "categoriesType": [
+      {
+        "id": 12,
+        "name": "Refrescos",
+        "description": "Bebidas frías y carbonatadas sin alcohol.",
+        "image": "/assets/images/softDrinks.png",
+        "categoriesType": null
+      }
+    ],
+    "ingredientsType": null
+  },
+  {
+    "id": 6,
+    "name": "Cerveza",
+    "description": "Caña de cerveza nacional.",
+    "sellPrice": 2.5,
+    "image": "../../assets/images/beer.png",
+    "quantity": 60,
+    "sectionType": {
+      "id": 2,
+      "name": "Barra",
+      "description": "Secció dedicada a les begudes i còctels."
+    },
+    "categoriesType": [
+      {
+        "id": 1,
+        "name": "Begudes",
+        "description": "Bebidas en general.",
+        "image": "/assets/images/drinks.png",
+        "categoriesType": null
+      }
+    ],
+    "ingredientsType": null
+  },
+  {
+    "id": 7,
+    "name": "Pizza Barbacoa",
+    "description": "Pizza con salsa barbacoa, pollo, bacon y cebolla.",
+    "sellPrice": 15.0,
+    "image": "../../assets/images/pizza_bbq.png",
+    "quantity": 18,
+    "sectionType": {
+      "id": 1,
+      "name": "Cuina",
+      "description": "Secció dedicada als plats principals i aperitius."
+    },
+    "categoriesType": [
+      {
+        "id": 2,
+        "name": "Pizzas",
+        "description": "Variedad de pizzas ",
+        "image": "/assets/images/pizzas.png",
+        "categoriesType": null
+      }
+    ],
+    "ingredientsType": [
+      { "id": 20, "name": "Pollo", "description": "Tiras de pollo.", "image": "../../assets/images/chicken.png", "quantity": 2, "customizable": true },
+      { "id": 21, "name": "Bacon", "description": "Tiras de bacon.", "image": "../../assets/images/bacon.png", "quantity": 2, "customizable": true },
+      { "id": 22, "name": "Cebolla", "description": "Cebolla fresca.", "image": "../../assets/images/onion.png", "quantity": 1, "customizable": true },
+      { "id": 23, "name": "Salsa Barbacoa", "description": "Salsa barbacoa.", "image": "../../assets/images/bbq_sauce.png", "quantity": 1, "customizable": true }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Ensalada César",
+    "description": "Ensalada con lechuga, pollo, parmesano y salsa césar.",
+    "sellPrice": 9.0,
+    "image": "../../assets/images/caesar_salad.png",
+    "quantity": 25,
+    "sectionType": {
+      "id": 1,
+      "name": "Cuina",
+      "description": "Secció dedicada als plats principals i aperitius."
+    },
+    "categoriesType": [
+      {
+        "id": 10,
+        "name": "Ensaladas",
+        "description": "Variedad de ensaladas.",
+        "image": "/assets/images/salad.png",
+        "categoriesType": null
+      }
+    ],
+    "ingredientsType": [
+      { "id": 30, "name": "Lechuga", "description": "Lechuga fresca.", "image": "../../assets/images/lettuce.png", "quantity": 1, "customizable": true },
+      { "id": 31, "name": "Pollo", "description": "Tiras de pollo.", "image": "../../assets/images/chicken.png", "quantity": 1, "customizable": true },
+      { "id": 32, "name": "Parmesano", "description": "Queso parmesano.", "image": "../../assets/images/parmesan.png", "quantity": 1, "customizable": true },
+      { "id": 33, "name": "Salsa César", "description": "Salsa César.", "image": "../../assets/images/caesar_dressing.png", "quantity": 1, "customizable": true }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Croquetas de Jamón",
+    "description": "Croquetas caseras de jamón ibérico.",
+    "sellPrice": 6.0,
+    "image": "../../assets/images/croquetas.png",
+    "quantity": 40,
+    "sectionType": {
+      "id": 1,
+      "name": "Cuina",
+      "description": "Secció dedicada als plats principals i aperitius."
+    },
+    "categoriesType": [
+      {
+        "id": 20,
+        "name": "Tapas",
+        "description": "Tapas variadas.",
+        "image": "/assets/images/tapas.png",
+        "categoriesType": null
+      }
+    ],
+    "ingredientsType": [
+      { "id": 40, "name": "Jamón Ibérico", "description": "Jamón ibérico.", "image": "../../assets/images/ham.png", "quantity": 1, "customizable": true },
+      { "id": 41, "name": "Bechamel", "description": "Salsa bechamel.", "image": "../../assets/images/bechamel.png", "quantity": 1, "customizable": false }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Pizza 4 Quesos",
+    "description": "Pizza con mezcla de cuatro quesos: mozzarella, cheddar, gorgonzola y parmesano.",
+    "sellPrice": 14.0,
+    "image": "../../assets/images/pizza4cheese.png",
+    "quantity": 20,
+    "sectionType": {
+      "id": 1,
+      "name": "Cuina",
+      "description": "Secció dedicada als plats principals i aperitius."
+    },
+    "categoriesType": [
+      {
+        "id": 2,
+        "name": "Pizzas",
+        "description": "Variedad de pizzas ",
+        "image": "/assets/images/pizzas.png",
+        "categoryTypeParent": null,
+        "subcategoriesType": []
+      }
+    ],
+    "ingredientsType": null
+  },
+  {
+    "id": 4,
+    "name": "Agua Mineral",
+    "description": "Botella de agua mineral natural fría.",
+    "sellPrice": 1.5,
+    "image": "../../assets/images/water.png",
+    "quantity": 200,
+    "sectionType": {
+      "id": 2,
+      "name": "Barra",
+      "description": "Secció dedicada a les begudes i còctels."
+    },
+    "categoriesType": [
+      {
+        "id": 1,
+        "name": "Begudes",
+        "description": "",
+        "image": "/assets/images/drinks.png",
+        "categoryTypeParent": null,
+        "subcategoriesType": [
+          {
+            "id": 12,
+            "name": "Refrescos",
+            "description": "Bebidas frías y carbonatadas sin alcohol.",
+            "image": "/assets/images/softDrinks.png",
+            "categoryTypeParent": {
+              "id": 1,
+              "name": "Begudes",
+              "description": "",
+              "image": "/assets/images/drinks.png"
+            },
+            "subcategoriesType": []
+          }
+        ]
+      }
+    ],
+    "ingredientsType": null
+  },
+  {
+    "id": 5,
+    "name": "Primer Plat Menu",
+    "description": "Plato principal del menú del día.",
+    "sellPrice": 10.0,
+    "image": "../../assets/images/menu1.png",
+    "quantity": 15,
+    "sectionType": {
+      "id": 1,
+      "name": "Cuina",
+      "description": "Secció dedicada als plats principals i aperitius."
+    },
+    "categoriesType": [
+      {
+        "id": 31,
+        "name": "1er Plat",
+        "description": "1er plat",
+        "image": "/assets/images/pizzas.png",
+        "categoryTypeParent": {
+          "id": 3,
+          "name": "Menu",
+          "description": "Menu del dia",
+          "image": "/assets/images/pizzas.png"
+        },
+        "subcategoriesType": []
+      }
+    ],
+    "ingredientsType": null
+  },
+  {
+    "id": 6,
+    "name": "Café Solo",
+    "description": "Café espresso intenso y aromático.",
+    "sellPrice": 1.2,
+    "image": "../../assets/images/coffee.png",
+    "quantity": 50,
+    "sectionType": {
+      "id": 2,
+      "name": "Barra",
+      "description": "Secció dedicada a les begudes i còctels."
+    },
+    "categoriesType": [
+      {
+        "id": 41,
+        "name": "Cafés",
+        "description": "Variedad de cafés",
+        "image": "/assets/images/coffee.png",
+        "categoryTypeParent": {
+          "id": 4,
+          "name": "Cafeteria",
+          "description": "Productos de cafetería",
+          "image": "/assets/images/cafe.png"
+        },
+        "subcategoriesType": []
+      }
+    ],
+    "ingredientsType": null
+  },
+  {
+    "id": 7,
+    "name": "Café con Leche",
+    "description": "Café espresso mezclado con leche caliente.",
+    "sellPrice": 1.5,
+    "image": "../../assets/images/coffee_milk.png",
+    "quantity": 40,
+    "sectionType": {
+      "id": 2,
+      "name": "Barra",
+      "description": "Secció dedicada a les begudes i còctels."
+    },
+    "categoriesType": [
+      {
+        "id": 41,
+        "name": "Cafés",
+        "description": "Variedad de cafés",
+        "image": "/assets/images/coffee.png",
+        "categoryTypeParent": {
+          "id": 4,
+          "name": "Cafeteria",
+          "description": "Productos de cafetería",
+          "image": "/assets/images/cafe.png"
+        },
+        "subcategoriesType": []
+      }
+    ],
+    "ingredientsType": null
+  },
+  {
+    "id": 8,
+    "name": "Tarta de Queso",
+    "description": "Porción de tarta de queso cremosa y suave.",
+    "sellPrice": 4.0,
+    "image": "../../assets/images/cheesecake.png",
+    "quantity": 10,
+    "sectionType": {
+      "id": 1,
+      "name": "Cuina",
+      "description": "Secció dedicada als plats principals i aperitius."
+    },
+    "categoriesType": [
+      {
+        "id": 51,
+        "name": "Tartas",
+        "description": "Variedad de tartas",
+        "image": "/assets/images/cake.png",
+        "categoryTypeParent": {
+          "id": 5,
+          "name": "Postres",
+          "description": "Dulces y postres",
+          "image": "/assets/images/dessert.png"
+        },
+        "subcategoriesType": []
+      }
+    ],
+    "ingredientsType": null
+  },
+  {
+    "id": 9,
+    "name": "Brownie de Chocolate",
+    "description": "Brownie de chocolate con nueces, servido caliente.",
+    "sellPrice": 3.5,
+    "image": "../../assets/images/brownie.png",
+    "quantity": 12,
+    "sectionType": {
+      "id": 1,
+      "name": "Cuina",
+      "description": "Secció dedicada als plats principals i aperitius."
+    },
+    "categoriesType": [
+      {
+        "id": 5,
+        "name": "Postres",
+        "description": "Dulces y postres",
+        "image": "/assets/images/dessert.png",
+        "categoryTypeParent": null,
+        "subcategoriesType": [
+          {
+            "id": 51,
+            "name": "Tartas",
+            "description": "Variedad de tartas",
+            "image": "/assets/images/cake.png",
+            "categoryTypeParent": {
+              "id": 5,
+              "name": "Postres",
+              "description": "Dulces y postres",
+              "image": "/assets/images/dessert.png"
+            },
+            "subcategoriesType": []
+          }
+        ]
       }
     ],
     "ingredientsType": null
